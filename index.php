@@ -34,9 +34,10 @@ $app = new \Slim\Slim();
 
 // GET route
 $app->get(
-    '/',
+    '/today',
     function () {
-       $view = new SL_View("demo",array("test1"=>"test2","test3"=>"test4"));
+        new SL_View("header");
+        new SL_View("footer");
     }
 );
 
