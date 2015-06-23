@@ -11,6 +11,7 @@
 require 'vendor/slim/slim/Slim/Slim.php';
 require "libs/SL_Model.php";
 require "libs/SL_View.php";
+require "libs/SL_Controller.php";
 \Slim\Slim::registerAutoloader();
 
 /**
@@ -34,10 +35,11 @@ $app = new \Slim\Slim();
 
 // GET route
 $app->get(
-    '/today',
-    function () {
-        new SL_View("header");
-        new SL_View("footer");
+    '/:name',
+    function ($name) {
+        $c = new SL_Controller();
+        $demo = $c->load("Demo");
+        $demo->$name();
     }
 );
 
