@@ -1,6 +1,6 @@
 <?php
 
-class DayOfWeek_Migration_00002 extends Migration {
+class Task_Migration_00003 extends Migration {
 	protected $min_version = '0.8.1';
 	// protected $databases = FALSE;
 	// protected $import_data = array();
@@ -10,22 +10,16 @@ class DayOfWeek_Migration_00002 extends Migration {
 	// protected $unimport_key_fields = FALSE; // or an array of table => array(key, fields).
 
 	public function up() {
-		 $this->create_table('day_of_week')
-		 ->column("day","varchar",array("length"=>"45"))
-		 ->execute();
-
-		 $sql = "INSERT INTO `day_of_week` 
-		 (`day`)
-		 VALUES 
-		 ('Sunday'),('Monday'),('Tuesday'),('Wednesday'),('Thursday'),('Friday'),('Saturday'),('Everyday')";
-
-		 $this->db->query($sql);
+		$this->create_table('task')
+		->column("task_name", "varchar",array("limit"=>"255"))
+		->column("day_id","integer")
+		->column("user_id", "integer");
 		// $this->table('table')
 		// $this->set('key', 'value');
 	}
 
 	public function down() {
-	     $this->table('day_of_week')->drop();
+		$this->table('task')->drop();
 		// $value = $this->get('key');
 	}
 }
