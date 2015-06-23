@@ -12,6 +12,8 @@ require 'vendor/slim/slim/Slim/Slim.php';
 require "libs/SL_Model.php";
 require "libs/SL_View.php";
 require "libs/SL_Controller.php";
+
+$sl_cntr = new SL_Controller();
 \Slim\Slim::registerAutoloader();
 
 /**
@@ -35,11 +37,16 @@ $app = new \Slim\Slim();
 
 // GET route
 $app->get(
-    '/:name',
-    function ($name) {
-        $c = new SL_Controller();
-        $demo = $c->load("Demo");
-        $demo->$name();
+    '/:class/:method',
+    function ($class,$method) use ($sl_cntr,$app) {
+        if($sl_cntr->load($class) && method_exists($sl_cntr->$class, $method)){
+            $sl_cntr->$class->$method();
+        }else{
+            $app->notFound();
+        }
+
+        
+
     }
 );
 

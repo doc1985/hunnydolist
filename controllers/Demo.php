@@ -1,7 +1,12 @@
 <?php
 
 class Demo extends SL_Controller{
+
+	public function __construct(){
+
+	}
 	public function testing(){
-		echo "Hello World";
+		$model = new SL_Model();
+		var_dump($model);
 	}
 }
