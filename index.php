@@ -36,6 +36,7 @@ $app = new \Slim\Slim();
  */
 
 // GET route
+
 $app->get(
     '/:class/:method',
     function ($class,$method) use ($sl_cntr,$app) {
@@ -44,12 +45,18 @@ $app->get(
         }else{
             $app->notFound();
         }
-
-        
-
     }
 );
-
+$app->get(
+    '/:class',
+    function ($class) use ($sl_cntr,$app) {
+        if($sl_cntr->load($class) && method_exists($sl_cntr->$class, "index")){
+            $sl_cntr->$class->index();
+        }else{
+            $app->notFound();
+        }
+    }
+);
 // POST route
 $app->post(
     '/post',
